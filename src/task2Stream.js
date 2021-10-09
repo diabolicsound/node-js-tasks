@@ -3,10 +3,10 @@ import csv from 'csvtojson';
 
 const csvFilePath = './csv/nodejs-hw1-ex1.csv';
 
-const writable = fs.createWriteStream('./csv-to-txt-stream.txt', 'utf8');
+const writable = fs.createWriteStream('./src/csv-to-txt-stream.txt', 'utf8');
 
 function write(writableStream, data, callback) {
-    writable.write(data);
+    writableStream.write(data);
     callback();
 }
 

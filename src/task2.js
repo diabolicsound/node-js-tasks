@@ -6,7 +6,7 @@ const csvFilePath = './csv/nodejs-hw1-ex1.csv';
 csv()
     .fromFile(csvFilePath)
     .then((jsonObj)=>{
-        fs.writeFile('./csv-to-txt.txt', (JSON.stringify(jsonObj) + '\n'), (error) => {
+        fs.writeFile('./src/csv-to-txt.txt', (JSON.stringify(jsonObj) + '\n'), (error) => {
             if (error) {
                 console.log('error occurred')
             }
