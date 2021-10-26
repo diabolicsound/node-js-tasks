@@ -1,10 +1,13 @@
 {
   "name": "node-js-tasks",
   "version": "1.0.0",
+  "type": "module",
   "description": "",
-  "main": "index.js",
+  "main": "src/index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "task1": "node src/index.js",
+    "lint": "eslint --fix --ext .js."
   },
   "repository": {
     "type": "git",
@@ -16,5 +19,40 @@
   "bugs": {
     "url": "https://github.com/diabolicsound/node-js-tasks/issues"
   },
-  "homepage": "https://github.com/diabolicsound/node-js-tasks#readme"
+  "homepage": "https://github.com/diabolicsound/node-js-tasks#readme",
+  "dependencies": {
+    "express": "^4.17.1",
+    "uuid": "^8.3.2"
+  },
+  "devDependencies": {
+    "eslint": "^8.1.0",
+    "eslint-config-airbnb-base": "^14.2.1",
+    "eslint-plugin-import": "^2.25.2"
+  },
+  "eslintConfig": {
+    "extends": "airbnb-base",
+    "env": {
+      "es6": true,
+      "browser": true
+    },
+    "rules": {
+      "brace-style": [
+        "error",
+        "stroustrup"
+      ],
+      "comma-dangle": [
+        "error",
+        "never"
+      ],
+      "no-unused-vars": [
+        "warn"
+      ],
+      "no-var": [
+        "off"
+      ],
+      "one-var": [
+        "off"
+      ]
+    }
+  }
 }
