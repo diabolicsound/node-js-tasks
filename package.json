@@ -22,13 +22,13 @@
   "homepage": "https://github.com/diabolicsound/node-js-tasks#readme",
   "dependencies": {
     "express": "^4.17.1",
+    "express-joi-validation": "^5.0.0",
+    "joi": "^17.4.2",
     "uuid": "^8.3.2"
   },
   "devDependencies": {
+    "babel-eslint": "^10.1.0",
     "eslint": "^8.1.0",
-    "eslint-config-airbnb-base": "^14.2.1",
-    "eslint-config-prettier": "^8.3.0",
-    "eslint-plugin-import": "^2.25.2",
     "prettier": "2.4.1"
   },
   "eslintConfig": {
