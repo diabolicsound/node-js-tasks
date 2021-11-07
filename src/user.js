@@ -11,7 +11,15 @@ export const newUser = {
     isDeleted: false
 };
 
-class UserClass {
+export const updatedUser = {
+    id: uuidv4(),
+    login: 'updatedLogin',
+    password: 'updatedPassword',
+    age: 49,
+    isDeleted: false
+};
+
+class UserService {
     constructor() {
         for (let i = 0; i < 5; i++) {
             users.push({
@@ -24,12 +32,12 @@ class UserClass {
         }
     }
 
-    showUsers() {
+    getUsers() {
         return users;
     }
 
     getUser(id) {
-        return users.filter((user) => user.id === id)[0];
+        return users.find((user) => user.id === id);
     }
 
     removeUser(id) {
@@ -41,23 +49,28 @@ class UserClass {
         }
     }
 
-    createUser() {
-        users.push(newUser);
-        return newUser;
+    createUser(userData) {
+        users.push(userData);
+        return userData;
     }
 
     updateUser(id, updates) {
-        const userToUpdate = users.filter((user) => user.id === id)[0];
-        Object.assign(userToUpdate, updates);
-        return userToUpdate;
+        const userToUpdate = users.find((user) => user.id === id);
+        if (userToUpdate) {
+            Object.assign(userToUpdate, updates);
+            return userToUpdate;
+        }
+        return {
+            status: 'failed',
+            details: 'no user was found with this id'
+        };
     }
 
     getAutoSuggestUsers(loginSubstring, limit) {
-        users.sort((a, b) => a.login - b.login);
-        users.filter(({ login }) => login.includes(loginSubstring));
-
-        return users.slice(0, limit);
+        return users.filter((user) => user.login.toLowerCase().includes(loginSubstring.toLowerCase()))
+            .sort((a, b) => a.login - b.login)
+            .slice(0, limit);
     }
 }
 
-export const usersList = new UserClass();
+export const usersList = new UserService();

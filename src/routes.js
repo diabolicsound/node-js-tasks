@@ -1,15 +1,18 @@
 import { Router } from 'express';
 import { usersList } from './user.js';
-import { validateSchema, validationSchema } from './validation-schema.js';
+import {  userValidationSchema } from './user-schema.js';
+import { validateSchema } from './validation-schema.js';
+import { newUserRequest, updateUserRequest } from './user-requests.js';
 
 const router = Router();
 
 router
-    .get('/', (req, res) => {
-        res.json(usersList.showUsers());
+    .get('/users', newUserRequest, (req, res) => {
+        res.json(usersList.getUsers());
     })
-    .post('/', validateSchema(validationSchema), (req, res) => {
-        res.json(usersList.createUser());
+    .post('/users', newUserRequest, validateSchema(userValidationSchema), (req, res) => {
+        const newUser = req.body;
+        res.json(usersList.createUser(newUser));
     });
 
 router
@@ -21,11 +24,13 @@ router
     });
 
 router
-    .get('/:loginSubstring/:limit', (req, res) => {
-        res.json(usersList.getAutoSuggestUsers(req.params.loginSubstring, req.params.limit));
+    .get('/autosuggest', (req, res) => {
+        res.json(usersList.getAutoSuggestUsers(req.query.loginSubstring, req.query.limit));
     })
-    .post('/:id/:login/:password/:age/:isDeleted', validateSchema(validationSchema), (req, res) => {
-        res.json(usersList.updateUser(req.params.id, req.params));
+    .put('/updateUser/:id', updateUserRequest, validateSchema(userValidationSchema), (req, res) => {
+        const updates = req.body;
+        const { id } = req.params;
+        res.json(usersList.updateUser(id, updates));
     });
 
 export default router;
