@@ -3,22 +3,6 @@ import { v4 as uuidv4 } from 'uuid';
 export const users = [];
 const DEFAULT_AGE = 4;
 
-export const newUser = {
-    id: uuidv4(),
-    login: 'defaultLogin',
-    password: 'password',
-    age: 40,
-    isDeleted: false
-};
-
-export const updatedUser = {
-    id: uuidv4(),
-    login: 'updatedLogin',
-    password: 'updatedPassword',
-    age: 49,
-    isDeleted: false
-};
-
 class UserService {
     constructor() {
         for (let i = 0; i < 5; i++) {
@@ -56,14 +40,8 @@ class UserService {
 
     updateUser(id, updates) {
         const userToUpdate = users.find((user) => user.id === id);
-        if (userToUpdate) {
-            Object.assign(userToUpdate, updates);
-            return userToUpdate;
-        }
-        return {
-            status: 'failed',
-            details: 'no user was found with this id'
-        };
+        Object.assign(userToUpdate, updates);
+        return userToUpdate;
     }
 
     getAutoSuggestUsers(loginSubstring, limit) {
