@@ -1,8 +1,8 @@
 import express  from 'express';
-import usersRouter from './users.router.js';
+import usersRouter from './users/controllers/users.router.js';
 
 const app = express();
-const port = 10553;
+const port = 5432;
 
 app.use(express.json());
 
