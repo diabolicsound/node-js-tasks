@@ -1,5 +1,6 @@
 import fs from 'fs';
 import csv from 'csvtojson';
+import os from 'os';
 
 const csvFilePath = './csv/nodejs-hw1-ex1.csv';
 
@@ -10,13 +11,15 @@ function write(writableStream, data, callback) {
     callback();
 }
 
-csv()
+csv({delimeter: ';'})
     .fromFile(csvFilePath)
     .then((jsonObj)=>{
-        write(writable, JSON.stringify(jsonObj), error => {
-            if (error) {
-                console.log('error occurred');
-            }
-            console.log('file has been written')
-        })
+        for (let i = 0; i < jsonObj.length; i++) {
+            write(writable, (JSON.stringify(jsonObj[i]) + os.EOL), error => {
+                if (error) {
+                    console.log('error occurred');
+                }
+                console.log('line has been added')
+            })
+        }
     })
