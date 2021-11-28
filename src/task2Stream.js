@@ -11,15 +11,15 @@ function write(writableStream, data, callback) {
     callback();
 }
 
-csv({delimeter: ';'})
+csv()
     .fromFile(csvFilePath)
     .then((jsonObj)=>{
-        for (let i = 0; i < jsonObj.length; i++) {
-            write(writable, (JSON.stringify(jsonObj[i]) + os.EOL), error => {
+        jsonObj.forEach(item => {
+            write(writable, (JSON.stringify(item) + os.EOL), error => {
                 if (error) {
                     console.log('error occurred');
                 }
                 console.log('line has been added')
             })
-        }
+        })
     })
