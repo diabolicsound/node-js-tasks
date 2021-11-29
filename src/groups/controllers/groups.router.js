@@ -9,7 +9,8 @@ groupsRouter
 
 groupsRouter
     .get('/userGroups/:id', controllers.getUserGroups)
-    .put('/updateUser/:id', controllers.updateUser);
+    .put('/updateUser/:id', controllers.updateUser)
+    .post('/addUser/:groupId', controllers.addUsersToGroup);
 
 groupsRouter
     .get('/:id', controllers.getUser)

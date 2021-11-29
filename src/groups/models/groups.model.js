@@ -17,7 +17,7 @@ sequelize.sync();
 
 export const Group = sequelize.define('group', {
     id: {
-        type: DataTypes.STRING,
+        type: DataTypes.UUID,
         primaryKey: true,
         unique: true,
     },

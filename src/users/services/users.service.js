@@ -30,10 +30,7 @@ class UserService {
     }
 
     updateUser(id, updates) {
-        return this.userModel.findOne({ where: { id } }).then(res => {
-            Object.assign(res, updates);
-            return res;
-        });
+        return this.userModel.update(updates, { where: { id } }).then(res => res);
     }
 
     getAutoSuggestUsers(loginSubstring, limit) {

@@ -27,4 +27,8 @@ export const controllers = {
     getUserGroups: async (req, res) => {
         res.json(await groupsList.getUserGroups(req.params.id));
     },
+
+    addUsersToGroup: async (req, res) => {
+        res.json(await groupsList.addUsersToGroup(req.params.groupId, req.body.ids));
+    },
 };

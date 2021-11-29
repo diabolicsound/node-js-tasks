@@ -5,7 +5,7 @@ import { sequelize, Group } from '../../groups/models/groups.model.js';
 
 export const User = sequelize.define('user', {
     id: {
-        type: DataTypes.STRING,
+        type: DataTypes.UUID,
         primaryKey: true,
         unique: true,
     },
