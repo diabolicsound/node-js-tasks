@@ -14,7 +14,7 @@ sequelize.sync();
 
 export const User = sequelize.define('user', {
     id: {
-        type: DataTypes.STRING,
+        type: DataTypes.UUID,
         primaryKey: true,
         unique: true,
     },
