@@ -2,6 +2,8 @@ import pkg from 'sequelize';
 
 const { Sequelize, DataTypes } = pkg;
 
+const permissions = ['READ', 'WRITE', 'DELETE', 'SHARE', 'UPLOAD_FILES'];
+
 export const sequelize = new Sequelize({
     dialect: 'postgres',
     database: 'postgres',
@@ -11,16 +13,23 @@ export const sequelize = new Sequelize({
     password: 'admin'
 });
 
+sequelize.sync();
+
 export const Group = sequelize.define('group', {
     id: {
         type: DataTypes.STRING,
-        primaryKey: true
+        primaryKey: true,
+        unique: true,
     },
     name: {
         type: DataTypes.STRING
     },
-    permissions: DataTypes.ARRAY
+    permissions:  {
+        type: DataTypes.ARRAY(DataTypes.STRING),
+        defaultValue: permissions
+    }
 }, {
-    timestamps: false
+    timestamps: false,
+    tableName: 'groups',
 });
 

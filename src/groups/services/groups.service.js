@@ -1,4 +1,6 @@
+import { sequelize } from '../models/groups.model.js';
 import { Group } from '../models/groups.model.js';
+import { User } from '../../users/models/users.model.js';
 
 class GroupService {
     constructor(GroupModel) {
@@ -31,6 +33,14 @@ class GroupService {
             Object.assign(res, updates);
             return res;
         });
+    }
+
+    getUserGroups(id) {
+        return this.GroupModel.findOne({ where: { id }, include: [{
+            model: User,
+            attributes: ['id', 'login'],
+            as: 'users'
+        }] }).then(res => res);
     }
 }
 

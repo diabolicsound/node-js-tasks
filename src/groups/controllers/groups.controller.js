@@ -22,5 +22,9 @@ export const controllers = {
 
     deleteUser: async (req, res) => {
         res.json(await groupsList.removeGroup(req.params.id));
-    }
+    },
+
+    getUserGroups: async (req, res) => {
+        res.json(await groupsList.getUserGroups(req.params.id));
+    },
 };
