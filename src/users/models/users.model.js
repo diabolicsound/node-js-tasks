@@ -10,17 +10,21 @@ export const sequelize = new Sequelize({
     password: 'admin'
 });
 
+sequelize.sync();
+
 export const User = sequelize.define('user', {
     id: {
         type: DataTypes.STRING,
-        primaryKey: true
+        primaryKey: true,
+        unique: true,
     },
     login: {
         type: DataTypes.STRING
     },
     password: DataTypes.STRING,
-    age: DataTypes.NUMBER,
+    age: DataTypes.BIGINT,
     isDeleted: DataTypes.BOOLEAN
 }, {
-    timestamps: false
+    timestamps: false,
+    tableName: 'users',
 });
