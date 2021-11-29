@@ -45,8 +45,7 @@ class GroupService {
             const groups = this.GroupModel.findOne({ where: { id: groupId } }, { transaction }).then(res => res);
             const users = userIds.forEach(userId => {
                 User.findOne({where: { id: userId }}, {transaction}).then(res => res);
-            }
-            }
+            })
         })
     }
 }
