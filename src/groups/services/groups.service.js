@@ -1,4 +1,3 @@
-import { sequelize } from '../models/groups.model.js';
 import { Group } from '../models/groups.model.js';
 import { User } from '../../users/models/users.model.js';
 
@@ -38,15 +37,6 @@ class GroupService {
             attributes: ['id', 'login'],
             as: 'users'
         }] }).then(res => res);
-    }
-
-    async addUsersToGroup(groupId, userIds) {
-        return await sequelize.transaction(transaction => {
-            const groups = this.GroupModel.findOne({ where: { id: groupId } }, { transaction }).then(res => res);
-            const users = userIds.forEach(userId => {
-                User.findOne({where: { id: userId }}, {transaction}).then(res => res);
-            })
-        })
     }
 }
 

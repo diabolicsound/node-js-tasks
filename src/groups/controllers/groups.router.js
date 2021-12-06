@@ -4,16 +4,15 @@ import { controllers } from './groups.controller.js';
 const groupsRouter = Router();
 
 groupsRouter
-    .get('/', controllers.getUsers)
-    .post('/', controllers.addUser);
+    .get('/', controllers.getGroups)
+    .post('/', controllers.createGroup);
 
 groupsRouter
     .get('/userGroups/:id', controllers.getUserGroups)
-    .put('/updateUser/:id', controllers.updateUser)
-    .post('/addUser/:groupId', controllers.addUsersToGroup);
+    .put('/updateGroup/:id', controllers.updateGroup);
 
 groupsRouter
-    .get('/:id', controllers.getUser)
-    .delete('/:id', controllers.deleteUser);
+    .get('/:id', controllers.getGroup)
+    .delete('/:id', controllers.removeGroup);
 
 export default groupsRouter;
