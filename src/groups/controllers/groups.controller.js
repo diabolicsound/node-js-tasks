@@ -1,6 +1,6 @@
 import { groupsList } from '../services/groups.service.js';
 import { infoLogger } from '../../log-middlewares/info.logger.js';
-import { errorLogger } from '../../log-middlewares/error.logger..js';
+import { errorLogger } from '../../log-middlewares/error.logger.js';
 
 import { groupMethods } from '../constants/groups.constants.js';
 

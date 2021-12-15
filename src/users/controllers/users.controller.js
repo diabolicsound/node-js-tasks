@@ -1,6 +1,6 @@
 import { usersList } from '../services/users.service.js';
 import { infoLogger } from '../../log-middlewares/info.logger.js';
-import { errorLogger } from '../../log-middlewares/error.logger..js';
+import { errorLogger } from '../../log-middlewares/error.logger.js';
 
 import { userMethods } from '../constants/users.constants.js';
 
