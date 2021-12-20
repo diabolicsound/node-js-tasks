@@ -2,19 +2,20 @@ import { Router } from 'express';
 import { userValidationSchema } from '../validation/users.schema.js';
 import { validateSchema } from '../validation/validation-schema.js';
 import { controllers } from './users.controller.js';
+import { checkToken } from '../../middlewares/authorization.middleware.js';
 
 const usersRouter = Router();
 
 usersRouter
-    .get('/', controllers.getUsers)
-    .post('/', validateSchema(userValidationSchema), controllers.addUser);
+    .get('/', checkToken, controllers.getUsers)
+    .post('/', checkToken, validateSchema(userValidationSchema), controllers.addUser);
 
 usersRouter
-    .get('/autosuggest', controllers.getAutoSuggestUsers)
-    .put('/updateUser/:id', validateSchema(userValidationSchema), controllers.updateUser);
+    .get('/autosuggest', checkToken, controllers.getAutoSuggestUsers)
+    .put('/updateUser/:id', checkToken, validateSchema(userValidationSchema), controllers.updateUser);
 
 usersRouter
-    .get('/:id', controllers.getUser)
-    .delete('/:id', controllers.deleteUser);
+    .get('/:id', checkToken, controllers.getUser)
+    .delete('/:id', checkToken, controllers.deleteUser);
 
 export default usersRouter;
