@@ -1,18 +1,29 @@
 import express  from 'express';
+import cors from 'cors';
 import usersRouter from './users/controllers/users.router.js';
 import groupsRouter from './groups/controllers/groups.router.js';
-import logger from './log-middlewares/logger.js';
-import { errorMiddleware, invalidRouteMiddleware } from './log-middlewares/app.middleware.js';
+import logger from './middlewares/logger.js';
+import authorizationRouter from './authorization/controllers/authorization.router.js';
+import { errorMiddleware } from './middlewares/app.middleware.js';
 
 const app = express();
 const port = 5432;
 
+const corsOptions = {
+    'origin': '*',
+    'methods': 'GET,HEAD,PUT,PATCH,POST,DELETE',
+    'preflightContinue': false,
+    'optionsSuccessStatus': 204
+};
+
 app.use(express.json());
 
+app.use(cors(corsOptions));
+
+app.use('/authenticate', authorizationRouter);
 app.use('/users', usersRouter);
 app.use('/groups', groupsRouter);
 app.use(errorMiddleware);
-app.use(invalidRouteMiddleware);
 
 app.listen(port, () => {
     logger.info(`Server is running at http://localhost:${port}`);

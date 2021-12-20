@@ -18,6 +18,10 @@ class UserService {
         return this.userModel.findOne({ where: { id } }).then(res => res);
     }
 
+    getUserByLogin(login) {
+        return this.userModel.findOne({ where: { login } }).then(res => res);
+    }
+
     removeUser(id) {
         this.userModel.update({ isDeleted: true }, { where: { id } }).then(res => res);
         return this.userModel.findOne({ where: { id } }).then(res => res);

@@ -1,11 +1,11 @@
 import { usersList } from '../services/users.service.js';
-import { infoLogger } from '../../log-middlewares/info.logger.js';
-import { errorLogger } from '../../log-middlewares/error.logger.js';
+import { infoLogger } from '../../middlewares/info.logger.js';
+import { errorLogger } from '../../middlewares/error.logger.js';
 
 import { userMethods } from '../constants/users.constants.js';
 
 export const controllers = {
-    getUsers: async (req, res) => {
+    getUsers: async (req, res, next) => {
         const { params } = req;
         infoLogger(req);
 
@@ -14,9 +14,10 @@ export const controllers = {
         } catch (e) {
             errorLogger(e, userMethods.getUsers, params, res);
         }
+        next();
     },
 
-    addUser: async (req, res) => {
+    addUser: async (req, res, next) => {
         const { params } = req;
         infoLogger(req);
 
@@ -26,9 +27,10 @@ export const controllers = {
         } catch (e) {
             errorLogger(e, userMethods.addUser, params, res, true);
         }
+        next();
     },
 
-    getAutoSuggestUsers: async (req, res) => {
+    getAutoSuggestUsers: async (req, res, next) => {
         const { query } = req;
         infoLogger(req);
 
@@ -37,9 +39,10 @@ export const controllers = {
         } catch (e) {
             errorLogger(e, userMethods.getAutoSuggestUsers, query, res);
         }
+        next();
     },
 
-    updateUser: async (req, res) => {
+    updateUser: async (req, res, next) => {
         const { params } = req;
         const updates = req.body;
         const { id } = params;
@@ -50,9 +53,10 @@ export const controllers = {
         } catch (e) {
             errorLogger(e, userMethods.updateUser, params, res, true);
         }
+        next();
     },
 
-    getUser: async (req, res) => {
+    getUser: async (req, res, next) => {
         const { params } = req;
         infoLogger(req);
 
@@ -61,9 +65,10 @@ export const controllers = {
         }  catch (e) {
             errorLogger(e, userMethods.getUser, params, res);
         }
+        next();
     },
 
-    deleteUser: async (req, res) => {
+    deleteUser: async (req, res, next) => {
         const { params } = req;
         infoLogger(req);
 
@@ -72,5 +77,6 @@ export const controllers = {
         } catch (e) {
             errorLogger(e, userMethods.deleteUser, params, res);
         }
+        next();
     }
 };

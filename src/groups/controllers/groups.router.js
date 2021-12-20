@@ -1,18 +1,19 @@
 import { Router } from 'express';
 import { controllers } from './groups.controller.js';
+import { checkToken } from '../../middlewares/authorization.middleware.js';
 
 const groupsRouter = Router();
 
 groupsRouter
-    .get('/', controllers.getGroups)
-    .post('/', controllers.createGroup);
+    .get('/', checkToken, controllers.getGroups)
+    .post('/', checkToken, controllers.createGroup);
 
 groupsRouter
-    .get('/userGroups/:id', controllers.getUserGroups)
-    .put('/updateGroup/:id', controllers.updateGroup);
+    .get('/userGroups/:id', checkToken, controllers.getUserGroups)
+    .put('/updateGroup/:id', checkToken, controllers.updateGroup);
 
 groupsRouter
-    .get('/:id', controllers.getGroup)
-    .delete('/:id', controllers.removeGroup);
+    .get('/:id', checkToken, controllers.getGroup)
+    .delete('/:id', checkToken, controllers.removeGroup);
 
 export default groupsRouter;
