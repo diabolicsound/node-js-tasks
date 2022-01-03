@@ -3,7 +3,7 @@ import { User } from '../models/users.model.js';
 
 const { Op } = Sequelize;
 
-class UserService {
+export class UserService {
     constructor(userModel) {
         this.userModel = userModel;
     }
