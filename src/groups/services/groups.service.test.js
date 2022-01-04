@@ -25,9 +25,9 @@ dbMock.$queueResult([
     })
 ]);
 
-
 describe('groups.service.js', () => {
     let group;
+
     beforeEach(() => {
         group = new GroupService(dbMock);
     });
@@ -42,13 +42,14 @@ describe('groups.service.js', () => {
     });
 
     test('should find and return specific group by id', async () => {
-        const specificGroup = await group.getGroup('123e4567-e89b-12d3-a456-426614174000');
-        expect(specificGroup.id).toBe('123e4567-e89b-12d3-a456-426614174000');
+        const specificGroup = await group.getGroup('123e4567-e89b-12d3-a456-426614174001');
+        expect(specificGroup.id).toBe('123e4567-e89b-12d3-a456-426614174001');
     });
 
     test('should find & remove specific group', async () => {
         await group.removeGroup('123e4567-e89b-12d3-a456-426614174000');
         const groups = await group.getGroups();
+
         expect(groups[0].id).toBe(1);
     });
 
@@ -63,5 +64,25 @@ describe('groups.service.js', () => {
         expect(createdGroup.newGroup.id).toBe('123e4567-e89b-12d3-a456-426614174777');
         expect(createdGroup.newGroup.name).toBe('test_group');
         expect(createdGroup.newGroup.permissions).toBe('{READ,WRITE,DELETE,SHARE,UPLOAD_FILES}');
+    });
+
+    test('should update specific group', async () => {
+        const updatedGroupData = {
+            'name': 'test_group',
+            'permissions': '{READ,WRITE,DELETE,SHARE,UPLOAD_FILES}'
+        };
+        const updatedGroup = await group.updateGroup('123e4567-e89b-12d3-a456-426614174000', updatedGroupData);
+        const groups = await group.getGroups();
+
+        expect(updatedGroup[0]).toBe(1);
+        expect(groups[0].id).toBe(3);
+    });
+
+    test('should return specific group for many-to-many relationship request', async () => {
+        const specificGroup = await group.getUserGroups('123e4567-e89b-12d3-a456-426614174000');
+        const groups = await group.getGroups();
+
+        expect(specificGroup.id).toBe('123e4567-e89b-12d3-a456-426614174000');
+        expect(groups.length).toBe(1);
     });
 });

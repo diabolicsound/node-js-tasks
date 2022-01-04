@@ -1,7 +1,10 @@
 import { UserService } from './users.service.js';
 import { sequelize } from '../../groups/models/groups.model.js';
 import SequelizeMock from 'sequelize-mock';
+import { Sequelize } from 'sequelize';
 import 'regenerator-runtime';
+
+const { Op } = Sequelize;
 
 const mockSequelize = new SequelizeMock();
 
@@ -34,6 +37,7 @@ dbMock.$queueResult([
 
 describe('users.service.js', () => {
     let user;
+
     beforeEach(() => {
         user = new UserService(dbMock);
     });
@@ -53,8 +57,18 @@ describe('users.service.js', () => {
     });
 
     test('should find and return specific user by login', async () => {
+        await user.getUsers();
         const specificUser = await user.getUserByLogin('login2');
+
         expect(specificUser.login).toBe('login2');
+    });
+
+    test('should remove specific user', async () => {
+        const removedUser = await user.removeUser('123e4567-e89b-12d3-a456-426614174000');
+        const users = await user.getUsers();
+
+        expect(removedUser.id).toBe('123e4567-e89b-12d3-a456-426614174000');
+        expect(users[0].id).toBe(3);
     });
 
     test('should create and return specific user by id', async () => {
@@ -70,5 +84,25 @@ describe('users.service.js', () => {
         expect(createdUser.newUser.id).toBe('123e4567-e89b-12d3-a456-426614174777');
         expect(createdUser.newUser.login).toBe('createdUser');
         expect(createdUser.newUser.age).toBe('26');
+    });
+
+    test('should update specific user except id', async () => {
+        const userData = {
+            'id': '123e4567-e89b-12d3-a456-426614174777',
+            'login': 'updatedUser',
+            'password': 'pass321',
+            'age': '16',
+            'isDeleted': false
+        };
+        const updatedUser = await user.updateUser('123e4567-e89b-12d3-a456-426614174000', userData);
+        const specificUser = await user.getUser('123e4567-e89b-12d3-a456-426614174000');
+
+        expect(updatedUser[0]).toBe(1);
+        expect(specificUser.id).toBe('123e4567-e89b-12d3-a456-426614174000');
+    });
+
+    test('should match login from autoSuggest users list', async () => {
+        const autoSuggestList = await user.getAutoSuggestUsers('login', 2);
+        expect(autoSuggestList[0].dataValues.login).toStrictEqual({ [Op.iLike]: '%login%' });
     });
 });
