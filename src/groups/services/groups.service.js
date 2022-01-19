@@ -1,7 +1,7 @@
 import { Group } from '../models/groups.model.js';
 import { User } from '../../users/models/users.model.js';
 
-class GroupService {
+export class GroupService {
     constructor(GroupModel) {
         this.GroupModel = GroupModel;
     }

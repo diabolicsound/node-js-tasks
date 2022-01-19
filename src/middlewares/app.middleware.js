@@ -5,9 +5,3 @@ export const errorMiddleware = (err, req, res, next) => {
     res.status(500).send('Internal Server Error');
     next();
 };
-
-export const invalidRouteMiddleware = (req, res, next) => {
-    logger.error('Requested route does not exist');
-    res.status(500).send('Internal Server Error');
-    next();
-};

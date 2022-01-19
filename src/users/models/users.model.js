@@ -1,5 +1,5 @@
 import pkg from 'sequelize';
-const { Sequelize, DataTypes } = pkg;
+const { DataTypes } = pkg;
 import { sequelize, Group } from '../../groups/models/groups.model.js';
 
 
@@ -7,7 +7,7 @@ export const User = sequelize.define('user', {
     id: {
         type: DataTypes.UUID,
         primaryKey: true,
-        unique: true,
+        unique: true
     },
     login: {
         type: DataTypes.STRING

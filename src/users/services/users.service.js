@@ -3,7 +3,7 @@ import { User } from '../models/users.model.js';
 
 const { Op } = Sequelize;
 
-class UserService {
+export class UserService {
     constructor(userModel) {
         this.userModel = userModel;
     }
@@ -16,6 +16,10 @@ class UserService {
 
     getUser(id) {
         return this.userModel.findOne({ where: { id } }).then(res => res);
+    }
+
+    getUserByLogin(login) {
+        return this.userModel.findOne({ where: { login } }).then(res => res);
     }
 
     removeUser(id) {
